@@ -1,8 +1,10 @@
 '''
-Generates a random password based on a word or statement provided by the user.
+Generates a random password based on a word or statement
+provided by the user.
 
-Basically, the user will be asked what word or phrase they would like their 
-password to be based on, and it generates a random password from that.
+Basically, the user will be asked what word or phrase 
+they would like their password to be based on, and 
+it generates a random password from that.
 
 Each password must meet the following requirements:
 
@@ -14,6 +16,7 @@ Each password must meet the following requirements:
 '''
 from random import choice, shuffle
 import string as s, math
+from tkinter import simpledialog, messagebox
 
 
 def replace_common_letters(statement):
@@ -46,11 +49,11 @@ def replace_common_letters(statement):
 
 while True:
     # get the statement from the user
-    user_statement = input("\n\nEnter a statement you want to make a password from: ")
+    user_statement = simpledialog.askstring("Input Dialog", "Enter a statement you want to make a password from: ")
     
     # if the statement is not up to four characters, notify user 
     if len(user_statement) < 4:
-        print("\n\nStatement must be at least four characters long.\n\n")
+        messagebox.showinfo("INFO","Statement must be at least four characters long.")
         continue
 
     # remove extra whitespaces within the text, e.g. spaces and tabs
@@ -89,7 +92,8 @@ while True:
     # and the end padding to the end of the statement to form the refined password
     password = f"{start_padding}{user_statement}{end_padding}"
 
-    print(f"\n\nPassword: {password}\n")
+    # display the password to the user    
+    messagebox.showinfo("INFO",f"New password: {password}")
 
-    if input("\nContine Y/N? ").lower() == "n":
+    if simpledialog.askstring("Confirmation","Continue").lower() == "n":
         break
